@@ -10,11 +10,19 @@ class Repository:
     def all_cars(cls, limit=None):
         cls.__load_data()
 
-        cars = list(cls.__car_data.items())
+        cars = list(cls.__car_data.values())
         if limit:
             cars = cars[:limit]
 
         return cars
+
+    @classmethod
+    def car_by_cid(cls, cid):
+        if 0 <= cid < len(cls.__car_data.keys()):
+            all_ids = list(cls.__car_data.keys())
+            car_id = all_ids[cid]
+            if car_id:
+                return cls.car_by_id(car_id)
 
     @classmethod
     def car_by_id(cls, car_id):

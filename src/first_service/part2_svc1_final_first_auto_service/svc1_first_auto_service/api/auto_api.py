@@ -25,3 +25,22 @@ def single_auto(request: Request):
         return Response(status=404, json_body={'error': msg})
 
     return car
+
+
+@view_config(route_name='auto',
+             request_method='GET',
+             renderer='json')
+def auto_by_id(request: Request):
+    cid = request.matchdict.get('cid')
+    cid = int(cid)
+
+    if cid is not None:
+        car = Repository.car_by_cid(cid)
+        if not car:
+            msg = f"The car with id '{cid}' was not found."
+            return Response(status=404, json_body={'error': msg})
+
+        return car
+    else:
+        msg = f"The cid is None"
+        return Response(status=404, json_body={'error': msg})

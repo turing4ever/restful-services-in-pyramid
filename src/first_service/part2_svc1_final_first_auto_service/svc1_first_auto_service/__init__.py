@@ -19,5 +19,6 @@ def register_routes(config):
 
     config.add_route('autos_api', '/api/autos')
     config.add_route('auto_api', '/api/autos/{car_id}')
+    config.add_route('auto', '/api/auto/{cid}')
 
     config.scan()
