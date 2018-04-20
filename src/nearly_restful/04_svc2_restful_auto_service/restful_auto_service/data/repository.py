@@ -24,7 +24,8 @@ class Repository:
 
     @classmethod
     def all_cars(cls, limit=None):
-        cls.__load_data()
+        if not cls.__car_data:
+            cls.__load_data()
 
         cars = list(cls.__car_data.values())
         if limit:
@@ -34,7 +35,8 @@ class Repository:
 
     @classmethod
     def car_by_id(cls, car_id):
-        cls.__load_data()
+        if not cls.__car_data:
+            cls.__load_data()
         return cls.__car_data.get(car_id)
 
     @classmethod
@@ -67,7 +69,9 @@ class Repository:
 
     @classmethod
     def add_car(cls, car):
-        key = Repository.generate_id()
+        if not cls.__car_data:
+            cls.__load_data()
+        key = cls.generate_id()
         car.id = key
         cls.__car_data[key] = car
 
@@ -75,6 +79,8 @@ class Repository:
 
     @classmethod
     def update_car(cls, car):
+        if not cls.__car_data:
+            cls.__load_data()
         key = car.id
         cls.__car_data[key] = car
 
@@ -82,4 +88,6 @@ class Repository:
 
     @classmethod
     def delete_car(cls, car_id):
+        if not cls.__car_data:
+            cls.__load_data()
         del cls.__car_data[car_id]

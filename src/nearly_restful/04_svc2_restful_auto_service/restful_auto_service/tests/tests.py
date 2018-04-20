@@ -14,6 +14,7 @@ class ViewTests(unittest.TestCase):
         from restful_auto_service.views.home_page import home
         request = testing.DummyRequest()
         info = home(request)
+        print(info)
         self.assertEqual(info['project'], 'RESTful Auto Service')
 
 
